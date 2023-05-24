@@ -6,6 +6,10 @@
 body {
     margin: 20px;
 }
+
+#course-block {
+    margin-bottom: 40px;
+}
 #course-block button {
     margin: 10px 0 20px 0;
 }

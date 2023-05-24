@@ -34,24 +34,19 @@
   ],
   "courses": [
     {
-      "title": "Kiến Thức Nhập Môn IT",
+      "title": "Kiến Thức Nhập Môn IT1",
       "description": "Để có cái nhìn tổng quan về ngành IT - Lập trình web các bạn nên xem các videos tại khóa này trước nhé.",
-      "id": 1
+      "id": 7
     },
     {
       "title": "Kiến Thức Nhập Môn IT",
       "description": "Để có cái nhìn tổng quan về ngành IT - Lập trình web các bạn nên xem các videos tại khóa này trước nhé.",
-      "id": 2
+      "id": 8
     },
     {
       "title": "Kiến Thức Nhập Môn IT",
       "description": "Để có cái nhìn tổng quan về ngành IT - Lập trình web các bạn nên xem các videos tại khóa này trước nhé.",
-      "id": 3
-    },
-    {
-      "title": "Kiến Thức Nhập Môn IT 4",
-      "description": "Để có cái nhìn tổng quan về ngành IT - Lập trình web các bạn nên xem các videos tại khóa này trước nhé.",
-      "id": 4
+      "id": 9
     }
   ]
 }

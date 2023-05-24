@@ -113,7 +113,8 @@
 
 // Thêm/sửa/xóa khóa học với Fetch và REST API
 
-var apiCourses = "http://localhost:3000/courses"
+var apiCourses = "http://localhost:3000/courses";
+
 
 function start() {
     getCourses(renderCourse);
@@ -137,15 +138,26 @@ function renderCourse(courses) {
     var html = courses.map(course => {
         return `
         <div id="course-${course.id}">
-            <h2 class="title-course-${course.id}">${course.title}</h2>
-            <p class="description-course-${course.id}">${course.description}</p>
-            <button onclick="handleDeleteCourse(${course.id})">Xóa</button>
-            <button onclick="handleEditCourse(${course.id})">Sửa</button>
+            <div class="content-${course.id}">
+                <h2 class="title-course-${course.id}">${course.title}</h2>
+                <p class="description-course-${course.id}">${course.description}</p>
+            </div>
+            <div class="edit-${course.id} display-none"">
+                <div ">
+                    <label for="name">Name:</label>
+                    <input class="name-${course.id}" type="text" name="name">
+                </div>
+                <div ">
+                    <label for="description">Description:</label>
+                    <input class="description-${course.id}" type="text" name="description">
+                </div>
+            </div>
+            <button class="delete-button-${course.id}" onclick="handleDeleteCourse(${course.id})">Xóa</button>
+            <button class="edit-button-${course.id}" onclick="handleEditCourse(${course.id})">Sửa</button>
         </div>
         `
     })
     courseBlock.innerHTML = html.join('');
-    console.log(courses);
 }
 
 function creatCourse(data, callback) {
@@ -178,13 +190,24 @@ function handleCreateForm() {
             var newCourse = document.createElement("div");
             newCourse.setAttribute('id', `course-${course.id}`);
             newCourse.innerHTML = `
-                <h2 class="title-course-${course.id}">${course.title}</h2>
-                <p class="description-course-${course.id}">${course.description}</p>
-                <button onclick="handleDeleteCourse(${course.id})">Xóa</button>
-                <button onclick="handleEditCourse(${course.id})">Sửa</button>
+                <div class="content-${course.id}">
+                    <h2 class="title-course-${course.id}">${course.title}</h2>
+                    <p class="description-course-${course.id}">${course.description}</p>
+                </div>
+                <div class="edit-${course.id} display-none"">
+                    <div ">
+                        <label for="name">Name:</label>
+                        <input class="name-${course.id}" type="text" name="name">
+                    </div>
+                    <div ">
+                        <label for="description">Description:</label>
+                        <input class="description-${course.id}" type="text" name="description">
+                    </div>
+                </div>
+                <button class="delete-button-${course.id}" onclick="handleDeleteCourse(${course.id})">Xóa</button>
+                <button class="edit-button-${course.id}" onclick="handleEditCourse(${course.id})">Sửa</button>
             `
             courseBlock.appendChild(newCourse);
-            console.log(newCourse)
         });
     };
 }
@@ -204,28 +227,44 @@ function handleDeleteCourse(id) {
     })
 }
 
+function toggleHiddenShow (id) {
+    var contentBlock = document.querySelector('.content-' + id);
+    contentBlock.classList.toggle('display-none')
+
+    var editForm = document.querySelector('.edit-' + id);
+    editForm.classList.toggle('display-none')
+}
+
 function handleEditCourse(id) {
-    var title = document.querySelector('.title-course-' + id).innerHTML;
-    var description = document.querySelector('.description-course-' + id).innerHTML;
-    var nameCourse = document.querySelector('.name');
-    var descriptionCourse = document.querySelector('.description');
+    var course = document.querySelector('#course-' + id);
+    var title = document.querySelector('.title-course-' + id);
+    var description = document.querySelector('.description-course-' + id);
+    var nameCourse = document.querySelector('.name-' + id);
+    var descriptionCourse = document.querySelector('.description-' + id);
 
-    nameCourse.value = title;
-    descriptionCourse.value = description;
+    toggleHiddenShow(id);
 
-    var edit = document.querySelector('.edit');
-    edit.innerHTML = `Đang chỉnh sửa id = ${id}`;
-    var updateBtn = document.querySelector('.updateBtn');
+    nameCourse.value = title.innerHTML;
+    descriptionCourse.value = description.innerHTML;
+
+    var updateBtn = document.createElement('button');
+    var editBtn = document.querySelector('.edit-button-' + id);
+    editBtn.classList.toggle('display-none');
+    updateBtn.setAttribute("class", `updateBtn-${id}`)
+    updateBtn.innerText = 'Cập nhật'
+    course.appendChild(updateBtn)
+
     updateBtn.setAttribute("onclick", `updateCourse(${id})`)
     
 }
 
 function updateCourse(id) {
     
-    var nameCourse = document.querySelector('.name');
-    var descriptionCourse = document.querySelector('.description');
+    var nameCourseEdit = document.querySelector('.name-' + id);
+    var descriptionCourse = document.querySelector('.description-' + id);
+
     var data = {
-        title: nameCourse.value,
+        title: nameCourseEdit.value,
         description: descriptionCourse.value
     }
     fetch(apiCourses + `/${id}`, {
@@ -236,15 +275,14 @@ function updateCourse(id) {
         body: JSON.stringify(data)
     })
     .then(response => response.json())
-    .then(function(courses) {
-        getCourses(renderCourse);
+    .then(function(course) {  
+        var title = document.querySelector('.title-course-' + id);
+        var description = document.querySelector('.description-course-' + id);
+
+        title.innerHTML = course.title;
+        description.innerHTML = course.description;
+        console.log(title);
+        console.log(description);
     })
+    toggleHiddenShow(id);
 }
-
-var updateBtn = document.querySelector('.updateBtn');
-updateBtn.onclick = function() {
-    updateCourse();
-}
-    
-
-
