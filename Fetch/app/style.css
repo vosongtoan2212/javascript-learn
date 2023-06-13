@@ -1,0 +1,33 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    margin: 20px;
+}
+
+#course-block {
+    margin-bottom: 40px;
+}
+#course-block button {
+    margin: 10px 0 20px 0;
+}
+
+input {
+    width: 80%;
+    height: 40px;
+    word-wrap: break-word;
+}
+
+.display-none {
+    display: none;
+}
+
+#form {
+    margin-bottom: 80px;
+}
+
+.addBtn {
+    padding: 10px;
+}
