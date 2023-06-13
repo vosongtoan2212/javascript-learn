@@ -5,61 +5,65 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Player</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./assets/css/grid.css">
+    <link rel="stylesheet" href="./assets/css/responsive.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div id="container">
-        <div id="player">
-            <div id="play-control">
-                <div class="dassboard">
-                    <div class="cd">
-                        <div class="cd-thumb">
-                            <div class="cd-thumb-img"></div>
-                        </div>
-                    </div>
-                    <div class="timer-container">
-                        <div class="progress-erea">
-                            <input type="range" class="progress" name="progress" min="0" max="100" value="50">
-                        </div>
-                        <div class="song-timer">
-                            <div class="current-time">
-                                <p>00:00</p>
-                            </div>
-                            <div class="duration">
-                                <p>4:30</p>
+    <div id="container" class="grid wide">
+        <div id="player" class="row">
+            <div id="play-control" class="col l-6 m-6 c-12 ">
+                <div class="play-control-wrapper">
+                    <div class="dassboard">
+                        <div class="cd">
+                            <div class="cd-thumb">
+                                <div class="cd-thumb-img"></div>
                             </div>
                         </div>
-                    </div>
-                    <audio controls src="/assets/song/DuaEmVeNha.mp3" class="current-song"></audio>
-                    <div class="dassboard-song-info">
-                    </div>
-                </div>
-                <div class="control-container">
-                    <div class="control">
-                        <div class="btn btn-repeat"><i class="fa-solid fa-repeat"></i></div>
-                        <div class="btn btn-prev"><i class="fa-solid fa-backward-step"></i></div>
-                        <div class="btn btn-toggle-play">
-                            <div class="play-btn"><i class="fa-solid fa-play"></i></div>
-                            <div class="pause-btn display-none"><i class="fa-solid fa-pause"></i></div>
+                        <div class="timer-container">
+                            <div class="progress-erea">
+                                <input type="range" class="progress" name="progress" min="0" max="100" value="50">
+                            </div>
+                            <div class="song-timer">
+                                <div class="current-time">
+                                    <p>00:00</p>
+                                </div>
+                                <div class="duration">
+                                    <p>4:30</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="btn btn-next"><i class="fa-solid fa-forward-step"></i></div>
-                        <div class="btn btn-random"><i class="fa-solid fa-shuffle"></i></div>
+                        <audio controls src="/assets/song/DuaEmVeNha.mp3" class="current-song"></audio>
+                        <div class="dassboard-song-info">
+                        </div>
+                    </div>
+                    <div class="control-container">
+                        <div class="control">
+                            <div class="btn btn-repeat"><i class="fa-solid fa-repeat"></i></div>
+                            <div class="btn btn-prev"><i class="fa-solid fa-backward-step"></i></div>
+                            <div class="btn btn-toggle-play">
+                                <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+                                <div class="pause-btn display-none"><i class="fa-solid fa-pause"></i></div>
+                            </div>
+                            <div class="btn btn-next"><i class="fa-solid fa-forward-step"></i></div>
+                            <div class="btn btn-random"><i class="fa-solid fa-shuffle"></i></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div id="playlist">
+            <div id="playlist" class="col l-6 m-6 c-12">
                 <div class="playlist-header">
                     <h2>Playlist</h2>
                 </div>
-                <div class="song-container">
+                <div class="playlist-song-container">
                 </div>
             </div>
         </div>
     </div>
 
 
-    <script src="./script1.js"></script>
+    <script src="./assets/js/script1.js"></script>
 
 </body>
 </html>

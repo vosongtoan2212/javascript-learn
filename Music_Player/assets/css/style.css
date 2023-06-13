@@ -33,39 +33,41 @@ html {
 
 #container {
     width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #player {
-    width: 400px;
-    max-width: 90%;
-    margin: 20px auto;
+    margin: 10px auto;
     border-radius: 10px;
 }
 
 #play-control {
+    height: 500px;
     width: 100%;
-    background-color: #ffffff;
-    border-radius: 10px;
     margin-bottom: 20px;
+}
+
+.play-control-wrapper {
+    height: 100%;
+    background-color: #fff;
+    border-radius: 10px;
     overflow: hidden;
 }
 
 .dassboard {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    text-align: center;
     background-color: rgb(236, 241, 218);
-    border-radius: 0px -8px 15px rgba(0, 0, 0, 0.15);
     
 }
 .cd {
-    height: 200px;
-    width: 100%;
-    margin-top: 35px;
-    margin-bottom: 35px;
+    padding-top: 35px;
+    padding-bottom: 35px;
 }
 .cd-thumb {
-    height: 200px;
+    height: 220px;
     width: 80%;
     margin: auto;
 }
@@ -105,7 +107,7 @@ html {
 .dassboard-song-info {
     width: 100%;
     text-align: center;
-    margin: 10px 0;
+    padding: 20px 0;
 }
 .dassboard-song-name {
 
@@ -137,7 +139,7 @@ html {
 }
 
 .control-container .btn:hover {
-    color: #ff6021;
+    /* color: #ff6021; */
 }
 
 .control-container .btn.active {
@@ -147,6 +149,11 @@ html {
 .btn.btn-toggle-play {
     font-size: 32px;
 }
+
+.btn.btn-toggle-play .pause-btn {
+    color: #ff6021;
+}
+
 
 
 /* Playlist */
@@ -164,12 +171,12 @@ html {
     margin-bottom: 16px;
 }
 
-.song-container {
+.playlist-song-container {
     overflow-y: scroll;
     height: 90%;
 }
 
-.song {
+.playlist-song {
     padding: 0 10px;
     background-color: rgba(255, 255, 255, 0.295);
     display: flex;
@@ -177,31 +184,40 @@ html {
     margin-bottom: 10px;
     cursor: pointer;
 }
-.song.active {
+.playlist-song.active {
     background-color: #fff;
 }
-.song:hover {
-    background-color: #f8d8d8;
+.playlist-song:hover {
+    /* background-color: #f8d8d8; */
 }
 
-.song-info {
+.playlist-song-info {
     margin: 10px 0;
     flex: 1;
 }
-.song-info h3 {
+.playlist-song-info h3 {
     font-size: 18px;
     margin-bottom: 8px;
 }
 
-.song-info p {
+.playlist-song-info p {
     font-size: 12px;
 }
 
-.song-name {
+.playlist-song-name {
 
 }
 
-.song-time {
+.playlist-song-time {
     width: 40px;
     text-align: left;
+}
+
+
+
+@media (max-width: 739px) {
+    #container {
+        position: unset;
+        transform: unset;
+    }
 }

@@ -3,7 +3,7 @@ const $$ = document.querySelectorAll.bind(document)
 
 
 // GET ELEMENT HTML
-const songContainer = $('.song-container')
+const songContainer = $('.playlist-song-container')
 const togglePlayBtn = $('.btn-toggle-play')
 const repeatBtn = $('.btn-repeat')
 const playBtn = $('.btn-toggle-play .play-btn')
@@ -12,7 +12,6 @@ const prevBtn = $('.btn-prev')
 const nextBtn = $('.btn-next')
 const randomBtn = $('.btn-random')
 const audio = $('.current-song')
-
 
 
 let indexCurrentSong = 0
@@ -44,25 +43,25 @@ const app = {
             src: 'Thuong-La-Dau.mp3',
         },
         {
-            name: 'Đưa Em Về Nhà',
+            name: 'Đưa Em Về Nhà 2',
             singer: 'Grey D',
             image: 'duaemvenha.jpg',
             src: 'DuaEmVeNha.mp3',
         },
         {
-            name: 'Gió',
+            name: 'Gió 2',
             singer: 'Jank',
             image: 'gio-jank.jpg',
             src: 'Gio.mp3',
         },
         {
-            name: 'Mưa Tháng Sáu',
+            name: 'Mưa Tháng Sáu 2',
             singer: 'Vân Mai Hương',
             image: 'muathangsau.jpg',
             src: 'MuaThangSau.mp3',
         },
         {
-            name: 'Thương Là Đau',
+            name: 'Thương Là Đau 2',
             singer: 'Linh Hương Luz',
             image: 'thuongladau.jpg',
             src: 'Thuong-La-Dau.mp3',
@@ -78,12 +77,12 @@ const app = {
             // });
             // console.log(timer);
             return `   
-                <div class="song">
-                    <div class="song-info">
-                        <h3 class="song-name">${listSong.name}</h3>
-                        <p class="song-singer">${listSong.singer}</p>
+                <div class="playlist-song">
+                    <div class="playlist-song-info">
+                        <h3 class="playlist-song-name">${listSong.name}</h3>
+                        <p class="playlist-song-singer">${listSong.singer}</p>
                     </div>
-                    <div class="song-time">4:20</div>
+                    <div class="playlist-song-time">4:20</div>
                 </div>
             `
         })
@@ -126,17 +125,19 @@ const app = {
         this.playPauseSong()
     },
     activePlaylistSong: function() {
-        const playListSong = $$('#playlist .song-container .song')
-        $('.song.active').classList.remove('active')
+        const playListSong = $$('#playlist .playlist-song')
+        $('.playlist-song.active').classList.remove('active')
         playListSong[indexCurrentSong].classList.add('active')
     },
 
     handleEvent: function() {
-        const playListSong = $$('#playlist .song-container .song')
+        const playListSong = $$('#playlist .playlist-song')
         const _this = this
         togglePlayBtn.onclick = _this.playPauseSong
         prevBtn.onclick = function() {
-            if (indexCurrentSong == 0) {
+            if (randomBtn.classList.contains("active")) {
+                _this.randomSong()
+            } else if (indexCurrentSong == 0) {
                 indexCurrentSong = _this.listSongs.length-1
             } else {
                 indexCurrentSong--
@@ -146,7 +147,9 @@ const app = {
             _this.activePlaylistSong()
         }
         nextBtn.onclick = function() {
-            if (indexCurrentSong == _this.listSongs.length-1) {
+            if (randomBtn.classList.contains("active")) {
+                _this.randomSong()
+            } else if (indexCurrentSong == _this.listSongs.length-1) {
                 indexCurrentSong = 0
             } else {
                 indexCurrentSong++
@@ -154,6 +157,9 @@ const app = {
             _this.loadSong()
             _this.playPauseSong()
             _this.activePlaylistSong()
+
+            songContainer.scrollTop = $('.playlist-song.active').offsetTop
+
         }
         
         repeatBtn.onclick = function() {
@@ -191,7 +197,7 @@ const app = {
         
         playListSong.forEach((song, index) => {
             song.onclick = function() {
-                $('.song.active').classList.remove('active')
+                $('.playlist-song.active').classList.remove('active')
                 this.classList.add('active')
                 indexCurrentSong = index
                 _this.loadSong()
@@ -208,3 +214,5 @@ const app = {
 
 }
 app.start()
+
+console.log($('.playlist-song.active').offsetTop)

@@ -1,0 +1,110 @@
+
+/* PC high resolution*/
+@media (min-width: 1240px){
+	.over-play {
+        display: none !important;
+    }
+}
+
+/* Tablet Pro or PC low resolution*/
+@media (min-width: 1024px) and (max-width: 1239px) {
+	.over-play {
+        display: none !important;
+    }
+}
+
+/* Tablet and mobile */
+@media (max-width: 1023px) {
+    .hide-on-tablet-mobile {
+        display: none;
+    }
+
+    .header {
+        height: var(--header-height-mobile);
+    }
+    .website {
+        background: linear-gradient(to right bottom,#6d327c,#485DA6,#00a1ba,#01b18e,#32b37b);
+    }
+    .header__icon-nav {
+        display: inline-block;
+    }
+    .header__navigation {
+        position: absolute;
+        background-color: var(--white-color);
+        top: calc(var(--header-height-mobile) - 10px);
+        border-radius: 4px;
+        padding: 32px;
+        display: none;
+        left: 16px;
+        animation: nav-mobile ease-out 0.4s;
+    }
+    .content-wrapper {
+        margin-bottom: 10px;
+    }
+    
+    @keyframes nav-mobile {
+        from {
+            opacity: 0;
+            top: calc(var(--header-height-mobile) - 20px);
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .navigation-list {
+        display: block;
+    }
+
+    .navigation-item {
+        margin-right: 0;
+        padding: 10px 0;
+    }
+
+    .navigation-link {
+        color: var(--text-color); 
+    }
+    .content-article:hover {
+        transform: scale(1);
+    }
+    
+    .content-article-link:hover {
+        box-shadow: none;
+    }
+
+    .primary-btn:hover {
+        transform: none;
+    }
+    
+
+
+}
+
+/* Tablet */
+@media (min-width: 740px) and (max-width: 1023px) {
+    .hide-on-tablet {
+        display: none;
+    }
+    
+    .content-article {
+        margin-bottom: 16px;
+    }
+}
+/* Mobile */
+@media (max-width: 739px) {
+    .hide-on-mobile {
+        display: none;
+    }
+    .content-article {
+        margin-bottom: 12px;
+    }
+    .pagination {
+        margin-top: 12px;
+    }
+    .about-us-des {
+        padding: 12px 0;
+    }
+    .content-item.l-6:first-child {
+        margin-bottom: 11px;
+    }
+
+}
