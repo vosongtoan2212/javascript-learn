@@ -38,7 +38,7 @@ const pauseBtn = $('.btn-toggle-play .pause-btn')
 const prevBtn = $('.btn-prev')
 const nextBtn = $('.btn-next')
 const randomBtn = $('.btn-random')
-const audio = $('.current-song')
+// const audio = $('.current-song')
 
 let indexCurrentSong = 0
 
@@ -52,9 +52,9 @@ function loadSong() {
     dassboardSongInfo.innerHTML = currentSong
 
     const cdThumb = $('.cd-thumb-img')
-    cdThumb.style.backgroundImage = `url(/assets/images/${listSongs[indexCurrentSong].image})`;
+    cdThumb.style.backgroundImage = `url(./assets/images/${listSongs[indexCurrentSong].image})`;
 
-    audio.src = '/assets/song/' + listSongs[indexCurrentSong].src
+    audio.src = './assets/song/' + listSongs[indexCurrentSong].src
 }
 loadSong()
 
@@ -80,17 +80,22 @@ function randomSong() {
     playPauseSong()
 }
 
+function activePlaylistSong() {
+    $('.song.active').classList.remove('active')
+    playListSong[indexCurrentSong].classList.add('active')
+}
+
 
 
 // HTML DOM PLAYLIST
 const playList = listSongs.map(listSong => {
-    // const audioSong = new Audio(`/assets/song/${listSong.src}`)
-    // let timer = []
+    const audioSong = new Audio(`./assets/song/${listSong.src}`)
+    let timer = []
 
-    // audioSong.addEventListener("loadedmetadata", function() {
-    //     timer.push()
-    //     console.log(timer);
-    // });
+    audioSong.addEventListener("loadedmetadata", function() {
+        timer.push(audioSong.duration)
+    });
+    console.log(timer);
     return `   
         <div class="song">
             <div class="song-info">
@@ -118,8 +123,7 @@ prevBtn.onclick = function() {
     }
     loadSong()
     playPauseSong()
-    $('.song.active').classList.remove('active')
-    playListSong[indexCurrentSong].classList.add('active')
+    activePlaylistSong()
 }
 nextBtn.onclick = function() {
     if (indexCurrentSong == listSongs.length-1) {
@@ -129,8 +133,7 @@ nextBtn.onclick = function() {
     }
     loadSong()
     playPauseSong()
-    $('.song.active').classList.remove('active')
-    playListSong[indexCurrentSong].classList.add('active')
+    activePlaylistSong()
 }
 
 repeatBtn.onclick = function() {
@@ -153,10 +156,12 @@ audio.addEventListener("ended", function() {
             indexCurrentSong = 0
             loadSong()
             playPauseSong()
+            activePlaylistSong()
         } else {
             indexCurrentSong++
             loadSong()
             playPauseSong()
+            activePlaylistSong()
         }
     }
   });
@@ -173,11 +178,3 @@ playListSong.forEach((song, index) => {
         loadSong()
     }
 })
-
-
-// function start() {
-
-// }
-
-// start()
-
