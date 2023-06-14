@@ -12,10 +12,13 @@ const prevBtn = $('.btn-prev')
 const nextBtn = $('.btn-next')
 const randomBtn = $('.btn-random')
 const audio = $('.current-song')
+const cd = $('.cd')
 
 
 let indexCurrentSong = 0
-
+function isMobileDevice() {
+    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+  }
 const app = {
     listSongs: [
         {
@@ -106,10 +109,12 @@ const app = {
           audio.play();
           playBtn.classList.add("display-none")
           pauseBtn.classList.remove("display-none")
+          cd.classList.add('playing')
         } else {
           audio.pause();
           playBtn.classList.remove("display-none")
           pauseBtn.classList.add("display-none")
+          cd.classList.remove('playing')
         }
     },
     repeatSong: function() {

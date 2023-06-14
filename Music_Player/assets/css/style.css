@@ -37,6 +37,7 @@ html {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    max-width: 1000px;
 }
 
 #player {
@@ -46,7 +47,7 @@ html {
 
 #play-control {
     height: 500px;
-    width: 100%;
+    width: 450px;
     margin-bottom: 20px;
 }
 
@@ -63,12 +64,14 @@ html {
     
 }
 .cd {
-    padding-top: 35px;
-    padding-bottom: 35px;
+    padding: 40px;
+    transition: transform ease-in-out 0.4s;
+}
+.cd.playing {
+    transform: scale(1.1);
 }
 .cd-thumb {
     height: 220px;
-    width: 80%;
     margin: auto;
 }
 
@@ -78,7 +81,6 @@ html {
     background-size: cover;
     height: 100%;
     width: 100%;
-    margin: 0 auto;
     border-radius: 10px;
 }
 
@@ -139,7 +141,7 @@ html {
 }
 
 .control-container .btn:hover {
-    /* color: #ff6021; */
+    color: #ff6021;
 }
 
 .control-container .btn.active {
@@ -161,10 +163,16 @@ html {
 #playlist {
     height: 500px;
     width: 100%;
+    margin-bottom: 30px;
+    /* margin-right: 20px; */
+}
+
+.playlist-wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 16px 16px 32px 16px;
     background-color: rgba(255, 255, 255, 0.61);
     border-radius: 10px;
-    padding: 16px 16px 32px 16px;
-    margin-bottom: 30px;
 }
 
 .playlist-header {
@@ -188,7 +196,7 @@ html {
     background-color: #fff;
 }
 .playlist-song:hover {
-    /* background-color: #f8d8d8; */
+    background-color: #f8d8d8;
 }
 
 .playlist-song-info {
@@ -217,6 +225,7 @@ html {
 
 @media (max-width: 739px) {
     #container {
+        max-width: 500px;
         position: unset;
         transform: unset;
     }
