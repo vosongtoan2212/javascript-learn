@@ -13,6 +13,7 @@ const nextBtn = $('.btn-next')
 const randomBtn = $('.btn-random')
 const audio = $('.current-song')
 const cd = $('.cd')
+const cdThumb = $('.cd-thumb')
 
 
 let indexCurrentSong = 0
@@ -80,7 +81,7 @@ const app = {
             // });
             // console.log(timer);
             return `   
-                <div class="playlist-song">
+                <div class="playlist-song ">
                     <div class="playlist-song-info">
                         <h3 class="playlist-song-name">${listSong.name}</h3>
                         <p class="playlist-song-singer">${listSong.singer}</p>
@@ -107,15 +108,11 @@ const app = {
     playPauseSong: function() {
         if (audio.paused) {
           audio.play();
-          playBtn.classList.add("display-none")
-          pauseBtn.classList.remove("display-none")
-          cd.classList.add('playing')
+          
         } else {
           audio.pause();
-          playBtn.classList.remove("display-none")
-          pauseBtn.classList.add("display-none")
-          cd.classList.remove('playing')
         }
+
     },
     repeatSong: function() {
         audio.loop = true;
@@ -135,10 +132,46 @@ const app = {
         playListSong[indexCurrentSong].classList.add('active')
     },
 
-    handleEvent: function() {
+    handleEvents: function() {
         const playListSong = $$('#playlist .playlist-song')
         const _this = this
+
         togglePlayBtn.onclick = _this.playPauseSong
+
+        // Xử lý xoay cd
+        const cdThumbAnimate = cdThumb.animate([
+            { transform: 'rotate(360deg)'}
+        ], {
+            duration: 10000,  // 10s
+            iterations: Infinity
+        })
+        cdThumbAnimate.pause()
+
+        // Xử lý thu nhỏ / phóng to cd khi scroll
+        const cdWidth = cdThumb.offsetWidth
+        const cdHight = cdThumb.offsetHight
+        document.onscroll = function() {
+            const scrollTop = document.documentElement.scrollTop
+            cdThumb.style.width = cdWidth - scrollTop + 'px'
+            cdThumb.style.height = cdWidth - scrollTop + 'px'
+        }
+
+        // Khi audio đang phát
+        audio.onplay = function() {
+            cdThumbAnimate.play()
+            cd.classList.add('playing')
+            playBtn.classList.add("display-none")
+            pauseBtn.classList.remove("display-none")
+        }
+        // Khi audio ngừng phát
+        audio.onpause = function() {
+            cdThumbAnimate.pause()
+            cd.classList.remove('playing')
+            playBtn.classList.remove("display-none")
+            pauseBtn.classList.add("display-none")
+        }
+
+        // Xử lý khi nhấn nút bài trước đó
         prevBtn.onclick = function() {
             if (randomBtn.classList.contains("active")) {
                 _this.randomSong()
@@ -151,6 +184,8 @@ const app = {
             _this.playPauseSong()
             _this.activePlaylistSong()
         }
+
+        // Xử lý khi nhấn nút bài tiếp theo
         nextBtn.onclick = function() {
             if (randomBtn.classList.contains("active")) {
                 _this.randomSong()
@@ -162,8 +197,7 @@ const app = {
             _this.loadSong()
             _this.playPauseSong()
             _this.activePlaylistSong()
-
-            songContainer.scrollTop = $('.playlist-song.active').offsetTop
+            $('.playlist-song.active').scrollIntoView()
 
         }
         
@@ -214,7 +248,7 @@ const app = {
     start: function() {
         this.render()
         this.loadSong()
-        this.handleEvent()
+        this.handleEvents()
     }
 
 }
