@@ -61,6 +61,9 @@ html {
 .dassboard {
     text-align: center;
     background-color: rgb(236, 241, 218);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     
 }
 .cd {
@@ -92,7 +95,6 @@ html {
     width: 80%;
     text-align: center;
     margin-bottom: 20px;
-    display: none;
 }
 
 .progress-erea {
@@ -232,10 +234,12 @@ html {
         max-width: 500px;
         position: unset;
         transform: unset;
+        padding: 0;
     }
 
-    #player {
-        margin: 10px;
+    #player, #play-control, #playlist {
+        margin: 0;
+        padding: 0;
     }
 
     #play-control {
@@ -245,6 +249,7 @@ html {
 
     .play-control-wrapper {
         height: unset;
+        /* display: flex; */
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
@@ -252,6 +257,10 @@ html {
     .playlist-wrapper {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
+    }
+
+    .playlist {
+        
     }
 }
 
