@@ -15,6 +15,8 @@ const audio = $('.current-song')
 const cd = $('.cd')
 const cdThumb = $('.cd-thumb')
 const progressRange = $('.progress')
+const currentTime = $('.current-time p')
+const durationTime = $('.duration p')
 
 
 let indexCurrentSong = 0
@@ -28,6 +30,12 @@ const app = {
             singer: 'TLong',
             image: 'https://photo-resize-zmp3.zmdcdn.me/w600_r1x1_webp/cover/d/9/2/2/d922bc6bb76d3cbf319b2877a199ef6f.jpg',
             src: 'https://vnso-zn-5-tf-mp3-320s1-zmp3.zmdcdn.me/c76678ec11adf8f3a1bc/2082865505935552357?authen=exp=1686988090~acl=/c76678ec11adf8f3a1bc/*~hmac=07cb7b8417c5882a38e37b12a2d0a027&fs=MTY4NjgxNTI5MDUwOXx3ZWJWNnwwfDExNy4yLjEzMC44MQ',
+        },
+        {
+            name: 'Tòng Phu',
+            singer: 'Keyo',
+            image: 'https://photo-resize-zmp3.zmdcdn.me/w600_r1x1_webp/cover/d/f/9/b/df9b187a2b0e565ebe5b6bd60bdef622.jpg',
+            src: 'https://vnso-zn-23-tf-mp3-320s1-zmp3.zmdcdn.me/1eb180f561b488ead1a5/8186882552713682813?authen=exp=1686987159~acl=/1eb180f561b488ead1a5/*~hmac=89022e29d58f4e1c12a9bbe2a43a405f&fs=MTY4NjgxNDM1OTQ2OXx3ZWJWNnwwfDEyMy4yMS45MC4yNDM',
         },
         {
             name: 'Đưa Em Về Nhà',
@@ -133,6 +141,7 @@ const app = {
         },
     ],
     loadSong: function() {
+        const _this = this
         const currentSong = `
             <h3 class="dassboard-song-name">${this.listSongs[indexCurrentSong].name}</h3>
             <p class="dassboard-song-singer">${this.listSongs[indexCurrentSong].singer}</p>
@@ -141,9 +150,16 @@ const app = {
         dassboardSongInfo.innerHTML = currentSong
 
         const cdThumb = $('.cd-thumb-img')
-        cdThumb.style.backgroundImage = `url(${this.listSongs[indexCurrentSong].image})`;
+        cdThumb.style.backgroundImage = `url(${this.listSongs[indexCurrentSong].image})`
 
         audio.src = this.listSongs[indexCurrentSong].src
+
+        audio.addEventListener('loadedmetadata', function() {
+            durationTime.innerHTML = _this.secondToMinute(audio.duration)
+        })
+
+        document.title = `${this.listSongs[indexCurrentSong].name} - Music Player`
+        this.playPauseSong()
 
     },
     loadPlaylist: function () {
@@ -159,10 +175,13 @@ const app = {
             `
         })
         songContainer.innerHTML = playList.join('')
+        this.loadTimePlaylist()
     },
     loadTimePlaylist: function() {
         const _this = this
         const playlistSongTimer = $$('.playlist-song-time')
+
+        console.log(playlistSongTimer)
         this.listSongs.forEach((listSong, index) => {
             const newAudio = new Audio((`${listSong.src}`))
             newAudio.addEventListener("loadedmetadata", function() {
@@ -181,11 +200,9 @@ const app = {
     playPauseSong: function() {
         if (audio.paused) {
           audio.play();
-          
         } else {
           audio.pause();
         }
-
     },
     repeatSong: function() {
         audio.loop = true;
@@ -197,7 +214,6 @@ const app = {
         }
         indexCurrentSong = randomNumber
         this.loadSong()
-        this.playPauseSong()
     },
     activePlaylistSong: function() {
         const playListSong = $$('#playlist .playlist-song')
@@ -246,10 +262,10 @@ const app = {
 
         // Thay đổi progree song
         audio.ontimeupdate = function() {
-            let currentTime = $('.current-time p')
             const currentTimePercent = audio.currentTime / audio.duration * 100
-            console.log(currentTime)
-            progressRange.value = currentTimePercent
+            if (audio.play) {
+                progressRange.value = currentTimePercent
+            }
             currentTime.innerHTML = _this.secondToMinute(audio.currentTime)
         }
 
@@ -263,8 +279,8 @@ const app = {
                 indexCurrentSong--
             }
             _this.loadSong()
-            _this.playPauseSong()
             _this.activePlaylistSong()
+            $('.playlist-song.active').scrollIntoView()
         }
 
         // Xử lý khi nhấn nút bài tiếp theo
@@ -277,7 +293,6 @@ const app = {
                 indexCurrentSong++
             }
             _this.loadSong()
-            _this.playPauseSong()
             _this.activePlaylistSong()
             $('.playlist-song.active').scrollIntoView()
 
@@ -302,12 +317,10 @@ const app = {
                 if (indexCurrentSong == _this.listSongs.length-1) {
                     indexCurrentSong = 0
                     _this.loadSong()
-                    _this.playPauseSong()
                     _this.activePlaylistSong()
                 } else {
                     indexCurrentSong++
                     _this.loadSong()
-                    _this.playPauseSong()
                     _this.activePlaylistSong()
                 }
             }
@@ -322,18 +335,15 @@ const app = {
                 this.classList.add('active')
                 indexCurrentSong = index
                 _this.loadSong()
-                _this.playPauseSong()
             }
         })
     },
 
     start: function() {
         this.loadSong()
-        this.playPauseSong()
         this.loadPlaylist()
         this.handleEvents()
-        this.loadTimePlaylist()
-        console.log(this.secondToMinuteString(75))
+        
     }
 }
 app.start()

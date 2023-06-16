@@ -243,6 +243,7 @@ html {
     }
 
     #play-control {
+        position: fixed;
         height: unset;
         margin-bottom: 0;
     }
@@ -259,8 +260,9 @@ html {
         border-top-right-radius: 0;
     }
 
-    .playlist {
-        
+    #playlist {
+        position: absolute;
+        top: 500px;
     }
 }
 
