@@ -29,13 +29,13 @@ const app = {
             name: 'Kiếp Má Hồng',
             singer: 'TLong',
             image: 'https://photo-resize-zmp3.zmdcdn.me/w600_r1x1_webp/cover/d/9/2/2/d922bc6bb76d3cbf319b2877a199ef6f.jpg',
-            src: 'https://vnso-zn-5-tf-mp3-320s1-zmp3.zmdcdn.me/c76678ec11adf8f3a1bc/2082865505935552357?authen=exp=1686988090~acl=/c76678ec11adf8f3a1bc/*~hmac=07cb7b8417c5882a38e37b12a2d0a027&fs=MTY4NjgxNTI5MDUwOXx3ZWJWNnwwfDExNy4yLjEzMC44MQ',
+            src: 'https://vnso-zn-5-tf-mp3-320s1-zmp3.zmdcdn.me/c76678ec11adf8f3a1bc/2082865505935552357?authen=exp=1687342294~acl=/c76678ec11adf8f3a1bc/*~hmac=3e0c7724c94a2fdefc1a998d26fb1369&fs=MTY4NzE2OTQ5NDmUsICxNnx3ZWJWNnwxMDIzODA1MTA2fDExNS43OC4xMi45Mg',
         },
         {
             name: 'Tòng Phu',
             singer: 'Keyo',
             image: 'https://photo-resize-zmp3.zmdcdn.me/w600_r1x1_webp/cover/d/f/9/b/df9b187a2b0e565ebe5b6bd60bdef622.jpg',
-            src: 'https://vnso-zn-23-tf-mp3-320s1-zmp3.zmdcdn.me/1eb180f561b488ead1a5/8186882552713682813?authen=exp=1686987159~acl=/1eb180f561b488ead1a5/*~hmac=89022e29d58f4e1c12a9bbe2a43a405f&fs=MTY4NjgxNDM1OTQ2OXx3ZWJWNnwwfDEyMy4yMS45MC4yNDM',
+            src: 'https://vnso-zn-16-tf-mp3-320s1-zmp3.zmdcdn.me/a7d1d213ee53070d5e42/2981457658227013023?authen=exp=1687342147~acl=/a7d1d213ee53070d5e42/*~hmac=80d274fa106bb9de536e36ac1126253f&fs=MTY4NzE2OTM0NzgxMnx3ZWJWNnwxMDAyMTgyMTA3fDExOC43MC4xMjYdUngMjAx',
         },
         {
             name: 'Đưa Em Về Nhà',
@@ -175,7 +175,7 @@ const app = {
             `
         })
         songContainer.innerHTML = playList.join('')
-        this.loadTimePlaylist()
+        // this.loadTimePlaylist()
     },
     loadTimePlaylist: function() {
         const _this = this
@@ -260,13 +260,35 @@ const app = {
             pauseBtn.classList.add("display-none")
         }
 
-        // Thay đổi progree song
+        // Thay đổi currentTime và progress audio
+        let isProgressChanging = false
         audio.ontimeupdate = function() {
             const currentTimePercent = audio.currentTime / audio.duration * 100
-            if (audio.play) {
-                progressRange.value = currentTimePercent
+            if (audio.play && !isProgressChanging) {
+                progressRange.value = isNaN(currentTimePercent) ? 0 : currentTimePercent
             }
             currentTime.innerHTML = _this.secondToMinute(audio.currentTime)
+        }
+
+        progressRange.onchange = function(e) {
+            const currentTime = e.target.value / 100 * audio.duration
+            audio.currentTime = isNaN(currentTime) ? 0 : currentTime
+        }
+        progressRange.onmousedown  = function(e) {
+            isProgressChanging = true
+            console.log(isProgressChanging)
+        }
+        progressRange.onmouseup  = function(e) {
+            isProgressChanging = false
+            console.log(isProgressChanging)
+        }
+        progressRange.ontouchstart  = function(e) {
+            isProgressChanging = true
+            console.log(isProgressChanging)
+        }
+        progressRange.ontouchend  = function(e) {
+            isProgressChanging = false
+            console.log(isProgressChanging)
         }
 
         // Xử lý khi nhấn nút bài trước đó
@@ -343,7 +365,6 @@ const app = {
         this.loadSong()
         this.loadPlaylist()
         this.handleEvents()
-        
     }
 }
 app.start()
