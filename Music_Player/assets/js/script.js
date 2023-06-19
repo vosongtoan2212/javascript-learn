@@ -3,6 +3,8 @@ const $$ = document.querySelectorAll.bind(document)
 
 
 // GET ELEMENT HTML
+const playlist = $('#playlist')
+const playControlWrapper = $('.play-control-wrapper')
 const songContainer = $('.playlist-song-container')
 const togglePlayBtn = $('.btn-toggle-play')
 const repeatBtn = $('.btn-repeat')
@@ -17,7 +19,6 @@ const cdThumb = $('.cd-thumb')
 const progressRange = $('.progress')
 const currentTime = $('.current-time p')
 const durationTime = $('.duration p')
-
 
 let indexCurrentSong = 0
 function isMobileDevice() {
@@ -237,13 +238,14 @@ const app = {
         cdThumbAnimate.pause()
 
         // Xử lý thu nhỏ / phóng to cd khi scroll
-        const cdWidth = cdThumb.offsetWidth
-        const cdHight = cdThumb.offsetHight
-        document.onscroll = function() {
-            const scrollTop = document.documentElement.scrollTop
-            cdThumb.style.width = cdWidth - scrollTop + 'px'
-            cdThumb.style.height = cdWidth - scrollTop + 'px'
-        }
+        // const cdWidth = cdThumb.offsetWidth
+        // const cdHight = cdThumb.offsetHight
+        // songContainer.onscroll = function() {
+        //     const scrollTop = songContainer.offsetTop
+        //     console.log(scrollTop)
+        //     cdThumb.style.width = cdWidth - scrollTop + 'px'
+        //     cdThumb.style.height = cdWidth - scrollTop + 'px'
+        // }
 
         // Khi audio đang phát
         audio.onplay = function() {
@@ -302,7 +304,7 @@ const app = {
             }
             _this.loadSong()
             _this.activePlaylistSong()
-            $('.playlist-song.active').scrollIntoView()
+            // $('.playlist-song.active').scrollIntoView()
         }
 
         // Xử lý khi nhấn nút bài tiếp theo

@@ -78,8 +78,8 @@ html {
     display: flex;
     justify-content: center;
     transition: transform 8s;
-    height: 220px;
-    width: 220px;
+    height: 180px;
+    width: 180px;
 }
 
 
@@ -94,7 +94,7 @@ html {
 .timer-container {
     width: 80%;
     text-align: center;
-    margin: 10px 0;
+    margin-bottom: 20px;
 }
 
 .progress-erea {
@@ -116,6 +116,7 @@ html {
     width: 100%;
     text-align: center;
     padding: 20px 0;
+    margin-bottom: 20px;
 }
 .dassboard-song-name {
 
@@ -126,7 +127,8 @@ html {
 
 .control-container {
     padding: 6px 0;
-
+    position: relative;
+    bottom: 74px;
 }
 
 .control {
@@ -231,7 +233,6 @@ html {
 
 @media (max-width: 739px) {
     #container {
-        max-width: 500px;
         position: unset;
         transform: unset;
         padding: 0;
@@ -242,15 +243,31 @@ html {
         padding: 0;
     }
 
+    #player {
+        height: 100vh;
+        overflow: scroll;
+    }
+
+
     #play-control {
-        position: fixed;
         height: unset;
+        width: 100%;
         margin-bottom: 0;
+        z-index: 1
+    }
+
+    .control-container {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        background: #fff;
+        z-index: 1;
     }
 
     .play-control-wrapper {
+        position: fixed;
         height: unset;
-        /* display: flex; */
+        width: 100%;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
@@ -261,8 +278,25 @@ html {
     }
 
     #playlist {
-        position: absolute;
-        top: 500px;
+        height: unset;
+        position: relative;
+        margin-top: 296px;
+    }
+    
+    .playlist-song-container {
+        overflow-y: unset;
+    }
+
+    .cd {
+        padding: 20px;
+    }
+
+    .cd-thumb {
+        width: 140px;
+        height: 140px;
+    }
+    .dassboard-song-info {
+        padding: 0 0 20px 0;
     }
 }
 
