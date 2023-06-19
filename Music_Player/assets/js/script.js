@@ -362,6 +362,7 @@ const app = {
             }
         })
     },
+    
 
     start: function() {
         this.loadSong()
