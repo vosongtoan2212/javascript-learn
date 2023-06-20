@@ -281,7 +281,8 @@ text-align: left;
 #playlist {
     height: unset;
     position: relative;
-    margin-top: 296px;
+    margin-top: 316px;
+    margin-bottom: 69px;
 }
 
 .playlist-song-container {

@@ -20,7 +20,7 @@ const progressRange = $('.progress')
 const currentTime = $('.current-time p')
 const durationTime = $('.duration p')
 
-let indexCurrentSong = 0
+let indexCurrentSong = localStorage.getItem("indexCurrentSong") !== null ? localStorage.getItem("indexCurrentSong") : 0
 function isMobileDevice() {
     return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
   }
@@ -157,10 +157,12 @@ const app = {
 
         audio.addEventListener('loadedmetadata', function() {
             durationTime.innerHTML = _this.secondToMinute(audio.duration)
+            _this.playPauseSong()
+            _this.loadTimePlaylist()
         })
 
         document.title = `${this.listSongs[indexCurrentSong].name} - Music Player`
-        this.playPauseSong()
+        localStorage.setItem("indexCurrentSong", indexCurrentSong)
 
     },
     loadPlaylist: function () {
