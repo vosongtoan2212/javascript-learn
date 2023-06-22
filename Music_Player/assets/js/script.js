@@ -30,13 +30,13 @@ const app = {
             name: 'Kiếp Má Hồng',
             singer: 'TLong',
             image: 'https://photo-resize-zmp3.zmdcdn.me/w600_r1x1_webp/cover/d/9/2/2/d922bc6bb76d3cbf319b2877a199ef6f.jpg',
-            src: 'https://vnso-zn-5-tf-mp3-320s1-zmp3.zmdcdn.me/c76678ec11adf8f3a1bc/2082865505935552357?authen=exp=1687342294~acl=/c76678ec11adf8f3a1bc/*~hmac=3e0c7724c94a2fdefc1a998d26fb1369&fs=MTY4NzE2OTQ5NDmUsICxNnx3ZWJWNnwxMDIzODA1MTA2fDExNS43OC4xMi45Mg',
+            src: './assets/song/KiepMaHong.mp3',
         },
         {
             name: 'Tòng Phu',
             singer: 'Keyo',
             image: 'https://photo-resize-zmp3.zmdcdn.me/w600_r1x1_webp/cover/d/f/9/b/df9b187a2b0e565ebe5b6bd60bdef622.jpg',
-            src: 'https://vnso-zn-16-tf-mp3-320s1-zmp3.zmdcdn.me/a7d1d213ee53070d5e42/2981457658227013023?authen=exp=1687342147~acl=/a7d1d213ee53070d5e42/*~hmac=80d274fa106bb9de536e36ac1126253f&fs=MTY4NzE2OTM0NzgxMnx3ZWJWNnwxMDAyMTgyMTA3fDExOC43MC4xMjYdUngMjAx',
+            src: './assets/song/TongPhu.mp3',
         },
         {
             name: 'Đưa Em Về Nhà',
@@ -157,9 +157,9 @@ const app = {
 
         audio.addEventListener('loadedmetadata', function() {
             durationTime.innerHTML = _this.secondToMinute(audio.duration)
-            _this.playPauseSong()
             _this.loadTimePlaylist()
         })
+        this.playPauseSong()
 
         document.title = `${this.listSongs[indexCurrentSong].name} - Music Player`
         localStorage.setItem("indexCurrentSong", indexCurrentSong)
@@ -183,8 +183,6 @@ const app = {
     loadTimePlaylist: function() {
         const _this = this
         const playlistSongTimer = $$('.playlist-song-time')
-
-        console.log(playlistSongTimer)
         this.listSongs.forEach((listSong, index) => {
             const newAudio = new Audio((`${listSong.src}`))
             newAudio.addEventListener("loadedmetadata", function() {
@@ -306,7 +304,7 @@ const app = {
             }
             _this.loadSong()
             _this.activePlaylistSong()
-            // $('.playlist-song.active').scrollIntoView()
+            $('.playlist-song.active').scrollIntoView()
         }
 
         // Xử lý khi nhấn nút bài tiếp theo
@@ -367,6 +365,7 @@ const app = {
 
     start: function() {
         this.loadSong()
+        this.playPauseSong()
         this.loadPlaylist()
         this.handleEvents()
     }

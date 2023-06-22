@@ -279,14 +279,9 @@ text-align: left;
 }
 
 #playlist {
-    height: unset;
     position: relative;
     margin-top: 316px;
     margin-bottom: 69px;
-}
-
-.playlist-song-container {
-    overflow-y: unset;
 }
 
 .cd {
